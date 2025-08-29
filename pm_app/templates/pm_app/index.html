@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h1 class="display-4 text-center">AI-Augmented Project Management</h1>
+    <p class="lead text-center">Enter your project vision below to get started.</p>
+    <form method="post" class="chat-form">
+        {% csrf_token %}
+        <textarea name="prompt" class="chat-input" placeholder="Type your project vision..." maxlength="500" required></textarea>
+        <button type="submit" class="btn btn-primary btn-lg chat-btn">Generate Project Flow</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,514 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    #process-model-container {
+        width: 100%;
+        height: 600px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fdfdfd;
+    }
+
+    body {
+        background-color: #f8f9fa; /* A light background for the whole page */
+    }
+
+    /* Main containers for the two sections */
+    .page-section {
+        background-color: #ffffff;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Styles for the project flow (top section) */
+    .flow-container {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1.5rem; /* Space between cards */
+        align-items: flex-start; /* Align cards to the top */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        padding-bottom: 4px;
+    }
+
+    .flow-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1.5rem;
+        background-color: #f9f9f9;
+        flex: 0 0 320px; /* Prevent shrinking, set base width */
+        min-width: 320px; /* Minimum width for each card */
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .flow-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+
+    .flow-card h5 {
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .flow-card p, .flow-card div[data-name] {
+        color: #555;
+        background-color: #fff;
+        padding: 0.75rem;
+        border-radius: 4px;
+        border: 1px dashed #ccc;
+        flex-grow: 1;
+        overflow-y: visible;
+        min-height: 200px;
+    }
+
+    .flow-card [data-id] {
+        border: 1px dashed #ddd;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+    /* Styles for the bottom plan section */
+    .nav-tabs .nav-link {
+        color: #495057;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: #007bff;
+        border-color: #dee2e6 #dee2e6 #fff;
+        font-weight: bold;
+    }
+
+    .tab-content {
+        margin-top: 1.5rem;
+    }
+
+    .placeholder-content {
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+    }
+
+    /* Loading overlay styles */
+    #loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.85);
+        z-index: 1050;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .spinner {
+        border: 8px solid #e9ecef;
+        border-top: 8px solid #007bff;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1.5s linear infinite;
+    }
+
+    #loading-overlay p {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #343a40;
+        font-weight: 500;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<div class="container mt-5">
+
+    <div class="page-section">
+        <h2 class="mb-3 text-center">1. Review & Refine Your Project Flow</h2>
+        <p class="text-center text-muted mb-5">Click on any text to edit it, then confirm below to generate the detailed plan.</p>
+
+        <form id="project-flow-form">
+            <div class="flow-container text-center mb-4">
+                <div class="card flow-card">
+                    <h5 class="card-title">Vision</h5>
+                    <p contenteditable="true" data-name="vision">{{ project.vision }}</p>
+                    <button type="button" class="edit-btn">Edit</button>
+                    <button type="button" class="done-btn" style="display:none;">Done</button>
+                </div>
+                <div class="card flow-card">
+                    <h5 class="card-title">Outcomes</h5>
+                    <div id="outcomes-container" data-name="outcomes">
+                        {% for outcome in outcomes %}
+                            <div class="outcome-item" data-id="{{ outcome.id }}">
+                                <p class="description" contenteditable="true">{{ outcome.description }}</p>
+                                <button type="button" class="edit-btn">Edit</button>
+                                <button type="button" class="done-btn" style="display:none;">Done</button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card flow-card">
+                    <h5 class="card-title">Benefits</h5>
+                    <div data-name="benefits">
+                        {% for outcome in outcomes %}
+                            {% for benefit in outcome.benefits.all %}
+                                <div data-id="{{ benefit.id }}">
+                                    <p contenteditable="true">{{ benefit.description }}</p>
+                                    <button type="button" class="edit-btn">Edit</button>
+                                    <button type="button" class="done-btn" style="display:none;">Done</button>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card flow-card">
+                    <h5 class="card-title">Deliverables</h5>
+                    <div data-name="deliverables">
+                        {% for outcome in outcomes %}
+                            {% for benefit in outcome.benefits.all %}
+                                {% for deliverable in benefit.deliverables.all %}
+                                    <div data-id="{{ deliverable.id }}">
+                                        <p contenteditable="true">{{ deliverable.description }}</p>
+                                        <button type="button" class="edit-btn">Edit</button>
+                                        <button type="button" class="done-btn" style="display:none;">Done</button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-center text-muted mb-5">Click on any text to edit it; tasks update automatically below.</p>
+            </div>
+        </form>
+    </div>
+
+    <div class="page-section">
+        <h2 class="mb-3">2. Project Plan</h2>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tasks-tab" data-bs-toggle="tab" data-bs-target="#tasks" type="button" role="tab" aria-controls="tasks" aria-selected="true">Tasks</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="gantt-tab" data-bs-toggle="tab" data-bs-target="#gantt" type="button" role="tab" aria-controls="gantt" aria-selected="false">Gantt Chart</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="comms-tab" data-bs-toggle="tab" data-bs-target="#comms" type="button" role="tab" aria-controls="comms" aria-selected="false">Communication Channels</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="fp-tab" data-bs-toggle="tab" data-bs-target="#fp" type="button" role="tab" aria-controls="fp" aria-selected="false">Financial Plan</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Task Name</th>
+                            <th scope="col">Responsible Team</th>
+                            <th scope="col">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasks-table-body">
+                        {% with has_tasks=False %}
+                            {% for outcome in outcomes %}
+                                {% for benefit in outcome.benefits.all %}
+                                    {% for deliverable in benefit.deliverables.all %}
+                                        {% for task in deliverable.tasks.all %}
+                                            {% if not has_tasks %}{% with has_tasks=True %}{% endwith %}{% endif %}
+                                            <tr>
+                                                <td>{{ forloop.parentloop.parentloop.parentloop.counter }}.{{ forloop.parentloop.parentloop.counter }}.{{ forloop.parentloop.counter }}.{{ forloop.counter }}</td>
+                                                <td>{{ task.name }}</td>
+                                                <td>{{ task.responsible_team }}</td>
+                                                <td>{{ task.duration }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                            {% if not has_tasks %}
+                                <tr class="placeholder-row">
+                                    <td colspan="4" class="text-center p-5">Editing the flow above will automatically generate tasks.</td>
+                                </tr>
+                            {% endif %}
+                        {% endwith %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="gantt" role="tabpanel" aria-labelledby="gantt-tab">
+                <div id="gantt-chart-container"></div>
+                <div id="gantt-loading" class="placeholder-content">
+                    <p>Loading Gantt Chart...</p>
+                </div>
+                <!-- task map for mapping names of tasks to numbers -->
+                <div id="tasks-map"></div>
+            </div>
+
+            <div class="tab-pane fade" id="comms" role="tabpanel" aria-labelledby="comms-tab">
+                 <div class="placeholder-content">
+                    <p>A summary of communication channels will be displayed here.</p>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="fp" role="tabpanel" aria-labelledby="fp-tab">
+                <div class="placeholder-content">
+                    <p>A summary of the financial plan will be displayed here.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="loading-overlay">
+    <div class="spinner"></div>
+    <p>Processing changes...</p>
+</div>
+
+<script>
+const csrftoken = (() => {
+  let v = null;
+  document.cookie.split(';').forEach(c => {
+    c = c.trim();
+    if (c.startsWith('csrftoken=')) v = decodeURIComponent(c.slice('csrftoken='.length));
+  });
+  return v;
+})();
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const ganttTabBtn    = document.getElementById('gantt-tab');
+  const ganttContainer = document.getElementById('gantt-chart-container');
+  const loadingMessage = document.getElementById('gantt-loading');
+
+  async function renderGanttChart() {
+    const taskMapDiv = document.getElementById('tasks-map');
+    loadingMessage.style.display = 'block';
+
+    try {
+      const resp = await fetch("{% url 'gantt_chart_data' project_id=project.id %}");
+      if (!resp.ok) throw new Error(resp.statusText);
+
+      const data = await resp.json();
+      const taskMap = JSON.parse(resp.headers.get('X-Task-Map') || '{}');
+
+      taskMapDiv.innerHTML = '';
+      if (Object.keys(taskMap).length > 0) {
+        const mapList = document.createElement('ul');
+        for (const [task, name] of Object.entries(taskMap)) {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${task}: ${name}`;
+          mapList.appendChild(listItem);
+        }
+        taskMapDiv.appendChild(mapList);
+      } else {
+        taskMapDiv.innerHTML = '<p>No tasks available.</p>';
+      }
+
+      loadingMessage.style.display = 'none';
+      if (data.png) {
+        const existingImg = document.getElementById('gc');
+        if (existingImg) {
+          existingImg.src = data.png;
+        } else {
+          const img = document.createElement('img');
+          img.id = 'gc';
+          img.src = data.png;  // PNG or SVG data URL
+          img.alt = 'Gantt Chart';
+          img.style.maxWidth = '100%';
+          img.style.height = 'auto';
+          ganttContainer.appendChild(img);
+        }
+      } else {
+        ganttContainer.innerHTML = `<div class="placeholder-content"><p>${data.message || 'No data.'}</p></div>`;
+      }
+    } catch (e) {
+      loadingMessage.style.display = 'none';
+      ganttContainer.innerHTML = '<p>Error loading the chart.</p>';
+      console.error(e);
+    }
+  }
+
+  // Render when the Gantt tab becomes visible (Bootstrap) and also on click
+  ganttTabBtn.addEventListener('shown.bs.tab', renderGanttChart);
+  ganttTabBtn.addEventListener('click', renderGanttChart);
+
+  // --- DOCX downloaders (CSV removed) ---
+  async function downloadCommPlanDocx(triggerEl) {
+    const originalText = triggerEl.textContent;
+    triggerEl.textContent = 'Preparing...';
+    triggerEl.disabled = true;
+    try {
+      const response = await fetch("{% url 'download_comm_plan_docx' project_id=project.id %}", {
+        method: 'GET',
+        headers: { 'X-CSRFToken': csrftoken }
+      });
+      if (!response.ok) throw new Error(response.statusText);
+
+      const disposition = response.headers.get('Content-Disposition');
+      let filename = 'communication-plan.docx';
+      if (disposition && disposition.includes('attachment')) {
+        const m = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+        if (m && m[1]) filename = m[1].replace(/['"]/g, '');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Could not download the Communication Plan (DOCX).');
+    } finally {
+      triggerEl.textContent = originalText;
+      triggerEl.disabled = false;
+    }
+  }
+
+  async function downloadFinancialPlanDocx(triggerEl) {
+    const originalText = triggerEl.textContent;
+    triggerEl.textContent = 'Preparing...';
+    triggerEl.disabled = true;
+    try {
+      const response = await fetch("{% url 'download_financial_plan_docx' project_id=project.id %}", {
+        method: 'GET',
+        headers: { 'X-CSRFToken': csrftoken }
+      });
+      if (!response.ok) throw new Error(response.statusText);
+
+      const disposition = response.headers.get('Content-Disposition');
+      let filename = 'financial-plan.docx';
+      if (disposition && disposition.includes('attachment')) {
+        const m = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+        if (m && m[1]) filename = m[1].replace(/['"]/g, '');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Could not download the Financial Plan (DOCX).');
+    } finally {
+      triggerEl.textContent = originalText;
+      triggerEl.disabled = false;
+    }
+  }
+
+  async function sendUpdate(field, payload) {
+    try {
+      const body = { edited_field: field, payload: payload, source_of_change: 'user' };
+      const resp = await fetch("{% url 'update_flow_ajax' project_id=project.id %}", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+        body: JSON.stringify(body)
+      });
+      if (!resp.ok) throw new Error(`Server responded with status: ${resp.status}`);
+
+      const result = await resp.json();
+      if (result.status === 'success') {
+        window.location.reload();
+      } else {
+        console.error('Update failed:', result);
+        document.getElementById('loading-overlay').style.display = 'none';
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+      document.getElementById('loading-overlay').style.display = 'none';
+    }
+  }
+
+  function collectPayload(field, item) {
+    if (field === 'vision') {
+      return { vision: item.innerText.trim() };
+    }
+    return {
+      id: item.closest('[data-id]').getAttribute('data-id'),
+      description: item.innerText.trim()
+    };
+  }
+
+  // Delegated clicks for edit/done + DOCX on tab click
+  document.addEventListener('click', e => {
+    if (e.target.closest('.edit-btn')) {
+      const btn  = e.target.closest('.edit-btn');
+      const item = btn.closest('[data-id]') || btn.closest('.flow-card');
+      const editable = item.querySelector('[contenteditable]');
+      if (editable) { editable.setAttribute('contenteditable', 'true'); editable.focus(); }
+      btn.style.display = 'none';
+      const doneBtn = item.querySelector('.done-btn');
+      if (doneBtn) doneBtn.style.display = 'inline-block';
+      return;
+    }
+
+    // Trigger DOCX downloads when tabs are clicked (including their child elements)
+    if (e.target.closest('#comms-tab')) {
+      downloadCommPlanDocx(e.target.closest('#comms-tab'));
+      return;
+    }
+    if (e.target.closest('#fp-tab')) {
+      downloadFinancialPlanDocx(e.target.closest('#fp-tab'));
+      return;
+    }
+
+    if (e.target.closest('.done-btn')) {
+      const doneBtn = e.target.closest('.done-btn');
+      const item = doneBtn.closest('[data-id]') || doneBtn.closest('.flow-card');
+
+      let field = item.getAttribute('data-name');
+      if (!field) {
+        const parentCard = item.closest('.flow-card');
+        if (parentCard) {
+          const dataNameElement = parentCard.querySelector('[data-name]');
+          if (dataNameElement) field = dataNameElement.getAttribute('data-name');
+        }
+      }
+
+      const editable = item.querySelector('[contenteditable]');
+      if (editable) editable.setAttribute('contenteditable', 'false');
+
+      const editBtn = item.querySelector('.edit-btn');
+      if (editBtn) editBtn.style.display = 'inline-block';
+      doneBtn.style.display = 'none';
+
+      const payload = collectPayload(field, editable);
+      sendUpdate(field, payload);
+      return;
+    }
+  });
+});
+</script>
+{% endblock %}

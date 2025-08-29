@@ -1,0 +1,357 @@
+[
+    {
+        "id": "proj_launch_auto_01",
+        "metadata": {
+            "title": "Automated Product Launch Process",
+            "document": "Transition from a manual to fully automated product launch process.End-to-end orchestration of launch activities without human intervention: 95% of steps automated within 3 months.Real-time visibility into progress, bottlenecks, and exceptions: 90% of launch steps reported live on dashboard. Consistent adherence to launch standards and compliance checks: 100% compliance score per launch. Dramatically reduced launch cycle time: 50% reduction (from 10 days to 5 days) within 6 months. Centralized audit trail for all launch steps: audit logs accessible within 2 hours.",
+            "outcomes": [
+                {
+                    "description": "End-to-end orchestration of launch activities without human intervention: 95% of steps automated within 3 months",
+                    "benefits": [
+                        {
+                            "description": "Reduced need for manual intervention in launch processes",
+                            "deliverables": [
+                                {
+                                    "description": "Automated workflow engine configured for product launch stages",
+                                    "tasks": [
+                                        {
+                                            "name": "Map current manual launch process end-to-end, capturing roles, handoffs, and decision gates",
+                                            "responsible_team": "Process & Automation Team",
+                                            "duration": 5,
+                                            "start_date": "2025-09-01",
+                                            "end_date": "2025-09-05"
+                                        },
+                                        {
+                                            "name": "Define functional and non-functional requirements (SLAs, error handling, security)",
+                                            "responsible_team": "Process & Automation Team",
+                                            "duration": 7,
+                                            "start_date": "2025-09-08",
+                                            "end_date": "2025-09-16"
+                                        },
+                                        {
+                                            "name": "Evaluate and select the automation platform based on requirements",
+                                            "responsible_team": "Engineering Team",
+                                            "duration": 10,
+                                            "start_date": "2025-09-17",
+                                            "end_date": "2025-09-26"
+                                        },
+                                        {
+                                            "name": "Design the automated workflow model, including exception-handling branches",
+                                            "responsible_team": "Process & Automation Team",
+                                            "duration": 8,
+                                            "start_date": "2025-09-29",
+                                            "end_date": "2025-10-06"
+                                        },
+                                        {
+                                            "name": "Develop and configure workflow logic in the chosen automation engine",
+                                            "responsible_team": "Engineering Team",
+                                            "duration": 15,
+                                            "start_date": "2025-10-07",
+                                            "end_date": "2025-10-21"
+                                        },
+                                        {
+                                            "name": "Deploy workflow engine to development and test environments",
+                                            "responsible_team": "Engineering Team",
+                                            "duration": 5,
+                                            "start_date": "2025-10-22",
+                                            "end_date": "2025-10-26"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "description": "Real-time visibility into progress, bottlenecks, and exceptions: 90% of launch steps reported live on dashboard",
+                    "benefits": [
+                        {
+                            "description": "Fewer manual errors and rework, lowering operational risk: 80% reduction in post-launch defects.",
+                            "deliverables": [
+                                {
+                                    "description": "Dashboard and reporting suite for launch KPIs and exception alerts",
+                                    "tasks": [
+                                        {
+                                            "name": "Define key performance indicators and exception metrics",
+                                            "responsible_team": "BI & Analytics Team",
+                                            "duration": 4,
+                                            "start_date": "2025-09-03",
+                                            "end_date": "2025-09-06"
+                                        },
+                                        {
+                                            "name": "Gather reporting requirements from stakeholders",
+                                            "responsible_team": "BI & Analytics Team",
+                                            "duration": 5,
+                                            "start_date": "2025-09-08",
+                                            "end_date": "2025-09-12"
+                                        },
+                                        {
+                                            "name": "Design dashboard wireframes and data visualizations",
+                                            "responsible_team": "BI & Analytics Team",
+                                            "duration": 7,
+                                            "start_date": "2025-09-15",
+                                            "end_date": "2025-09-21"
+                                        },
+                                        {
+                                            "name": "Configure dashboard tools and data connections",
+                                            "responsible_team": "Engineering Team",
+                                            "duration": 10,
+                                            "start_date": "2025-09-22",
+                                            "end_date": "2025-10-01"
+                                        },
+                                        {
+                                            "name": "Validate data accuracy and performance",
+                                            "responsible_team": "BI & Analytics Team",
+                                            "duration": 5,
+                                            "start_date": "2025-10-02",
+                                            "end_date": "2025-10-06"
+                                        },
+                                        {
+                                            "name": "Set up real-time alerts for exceptions and SLA breaches",
+                                            "responsible_team": "Engineering Team",
+                                            "duration": 3,
+                                            "start_date": "2025-10-07",
+                                            "end_date": "2025-10-09"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": "proj_service_to_sales_02",
+        "metadata": {
+            "title": "Transitioning Service to Sales",
+            "document": "Transition the client service team away from administrative activities and towards generating sales.70% reduction in time spent on administrative tasks per team member within 6 months. Increase client-facing activities to 60% of total workload within 3 months. Drive a 25% uplift in upsell and cross-sell revenue per quarter. Achieve 100% CRM data accuracy through automated data capture. 90% team proficiency in core sales methodologies by the end of Q2.",
+            "outcomes": [
+                {
+                    "description": "70% reduction in time spent on administrative tasks per team member within 6 months",
+                    "benefits": [
+                        {
+                            "description": "Boost quarterly sales by an estimated £500k through increased upsells",
+                            "deliverables": [
+                                {
+                                    "description": "Administrative Process Automation",
+                                    "tasks": [
+                                        {
+                                            "name": "Map current admin workflows and time allocation",
+                                            "responsible_team": "Operations Team",
+                                            "duration": 5,
+                                            "start_date": "2025-10-01",
+                                            "end_date": "2025-10-05"
+                                        },
+                                        {
+                                            "name": "Identify high-volume, repetitive tasks for automation",
+                                            "responsible_team": "Operations Team",
+                                            "duration": 5,
+                                            "start_date": "2025-10-06",
+                                            "end_date": "2025-10-10"
+                                        },
+                                        {
+                                            "name": "Select and procure automation tools",
+                                            "responsible_team": "IT Department",
+                                            "duration": 10,
+                                            "start_date": "2025-10-13",
+                                            "end_date": "2025-10-22"
+                                        },
+                                        {
+                                            "name": "Develop and test automated workflows",
+                                            "responsible_team": "Operations Team",
+                                            "duration": 12,
+                                            "start_date": "2025-10-23",
+                                            "end_date": "2025-11-03"
+                                        },
+                                        {
+                                            "name": "Deploy automation in a pilot group",
+                                            "responsible_team": "Operations Team",
+                                            "duration": 8,
+                                            "start_date": "2025-11-04",
+                                            "end_date": "2025-11-11"
+                                        },
+                                        {
+                                            "name": "Roll out automation across the entire client service team",
+                                            "responsible_team": "Operations Team",
+                                            "duration": 10,
+                                            "start_date": "2025-11-12",
+                                            "end_date": "2025-11-21"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "description": "Drive a 25% uplift in upsell and cross-sell revenue per quarter",
+                    "benefits": [
+                        {
+                            "description": "Enhance team engagement with a 20% reduction in turnover rates",
+                            "deliverables": [
+                                {
+                                    "description": "CRM Enhancement and Integration",
+                                    "tasks": [
+                                        {
+                                            "name": "Audit existing CRM configuration",
+                                            "responsible_team": "CRM Team",
+                                            "duration": 5,
+                                            "start_date": "2025-10-06",
+                                            "end_date": "2025-10-10"
+                                        },
+                                        {
+                                            "name": "Define new CRM workflows for upsell tracking",
+                                            "responsible_team": "Sales Operations",
+                                            "duration": 7,
+                                            "start_date": "2025-10-13",
+                                            "end_date": "2025-10-19"
+                                        },
+                                        {
+                                            "name": "Configure custom fields, triggers, and task assignments",
+                                            "responsible_team": "CRM Team",
+                                            "duration": 8,
+                                            "start_date": "2025-10-20",
+                                            "end_date": "2025-10-27"
+                                        },
+                                        {
+                                            "name": "Integrate CRM with marketing automation tools",
+                                            "responsible_team": "Integration Team",
+                                            "duration": 10,
+                                            "start_date": "2025-10-28",
+                                            "end_date": "2025-11-06"
+                                        },
+                                        {
+                                            "name": "Test and refine CRM configurations with a user group",
+                                            "responsible_team": "CRM Team",
+                                            "duration": 5,
+                                            "start_date": "2025-11-07",
+                                            "end_date": "2025-11-11"
+                                        },
+                                        {
+                                            "name": "Train client service team on new CRM best practices",
+                                            "responsible_team": "Sales Enablement",
+                                            "duration": 4,
+                                            "start_date": "2025-11-12",
+                                            "end_date": "2025-11-15"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": "proj_data_consolidation_03",
+        "metadata": {
+            "title": "Consolidating Data Sources",
+            "document": "Consolidate disparate data sources into a single source of truth.100% identification and cataloguing of all data sources within 4 weeks. 90% of critical data mapped and integrated into the unified repository within 3 months. 75% reduction in time spent on data preparation for reporting within 6 months. 99.5% data accuracy ensured through validation and cleansing rules. Real-time data access with sub-5-second query response for dashboards.",
+            "outcomes": [
+                {
+                    "description": "100% identification and cataloguing of all data sources within 4 weeks",
+                    "benefits": [
+                        {
+                            "description": "50% faster insights generation accelerates decision-making",
+                            "deliverables": [
+                                {
+                                    "description": "Data Source Inventory and Assessment",
+                                    "tasks": [
+                                        {
+                                            "name": "Map and document all data sources",
+                                            "responsible_team": "Data Team",
+                                            "duration": 10,
+                                            "start_date": "2025-11-03",
+                                            "end_date": "2025-11-12"
+                                        },
+                                        {
+                                            "name": "Classify data by domain, sensitivity, and usage",
+                                            "responsible_team": "Data Governance Team",
+                                            "duration": 5,
+                                            "start_date": "2025-11-13",
+                                            "end_date": "2025-11-17"
+                                        },
+                                        {
+                                            "name": "Identify and confirm data owners and stewards",
+                                            "responsible_team": "Data Governance Team",
+                                            "duration": 4,
+                                            "start_date": "2025-11-18",
+                                            "end_date": "2025-11-21"
+                                        },
+                                        {
+                                            "name": "Perform initial data quality gap analysis",
+                                            "responsible_team": "Data Team",
+                                            "duration": 7,
+                                            "start_date": "2025-11-24",
+                                            "end_date": "2025-11-30"
+                                        },
+                                        {
+                                            "name": "Prioritize sources for integration based on business impact",
+                                            "responsible_team": "Data Team",
+                                            "duration": 3,
+                                            "start_date": "2025-12-01",
+                                            "end_date": "2025-12-03"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "description": "90% of critical data mapped and integrated into the unified repository within 3 months",
+                    "benefits": [
+                        {
+                            "description": "30% increase in stakeholder trust via consistent, high-quality data",
+                            "deliverables": [
+                                {
+                                    "description": "Unified Data Model and Schema",
+                                    "tasks": [
+                                        {
+                                            "name": "Define target data domains and core business entities",
+                                            "responsible_team": "Data Architecture Team",
+                                            "duration": 5,
+                                            "start_date": "2025-11-10",
+                                            "end_date": "2025-11-14"
+                                        },
+                                        {
+                                            "name": "Design the canonical data model for the unified store",
+                                            "responsible_team": "Data Architecture Team",
+                                            "duration": 10,
+                                            "start_date": "2025-11-17",
+                                            "end_date": "2025-11-26"
+                                        },
+                                        {
+                                            "name": "Establish and document naming conventions and data types",
+                                            "responsible_team": "Data Governance Team",
+                                            "duration": 4,
+                                            "start_date": "2025-11-27",
+                                            "end_date": "2025-11-30"
+                                        },
+                                        {
+                                            "name": "Validate model with key business stakeholders",
+                                            "responsible_team": "Data Architecture Team",
+                                            "duration": 5,
+                                            "start_date": "2025-12-01",
+                                            "end_date": "2025-12-05"
+                                        },
+                                        {
+                                            "name": "Finalize and publish the central data dictionary",
+                                            "responsible_team": "Data Governance Team",
+                                            "duration": 3,
+                                            "start_date": "2025-12-08",
+                                            "end_date": "2025-12-10"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]
